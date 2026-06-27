@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmileCare Dental Clinic | Dr. Patel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #1B2A4A;
+      --teal:   #2CB5A0;
+      --mint:   #E8F5F0;
+      --gold:   #F0A500;
+      --white:  #FFFFFF;
+      --text:   #2D3748;
+      --light:  #F7FAFA;
+      --gray:   #718096;
+      --border: #E2E8F0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 70px;
+      background: rgba(27,42,74,0.97);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+    }
+
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 38px; height: 38px;
+      background: var(--teal);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .logo-text { font-family: 'Playfair Display', serif; color: var(--white); font-size: 1.2rem; font-weight: 700; }
+    .logo-sub  { color: var(--teal); font-size: .7rem; letter-spacing: 2px; text-transform: uppercase; display: block; margin-top:-4px; }
+
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,.85); text-decoration: none; font-size: .9rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--teal); }
+
+    .nav-cta {
+      background: var(--teal); color: var(--white);
+      border: none; padding: 9px 22px; border-radius: 30px;
+      font-weight: 600; font-size: .88rem; cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: #22998A; transform: translateY(-1px); }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: .3s; }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--navy) 55%, #1e3a5f 100%);
+      display: flex; align-items: center;
+      padding: 90px 5% 60px;
+      position: relative; overflow: hidden;
+    }
+
+    #home::before {
+      content: '';
+      position: absolute; right: -80px; top: 50%; transform: translateY(-50%);
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, rgba(44,181,160,.18) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-content { max-width: 560px; z-index: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(44,181,160,.15); border: 1px solid rgba(44,181,160,.4);
+      color: var(--teal); font-size: .78rem; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 20px; margin-bottom: 22px;
+    }
+    .hero-badge::before { content: '●'; font-size: .5rem; }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      color: var(--white); font-weight: 700; line-height: 1.18;
+      margin-bottom: 18px;
+    }
+    .hero-title span { color: var(--teal); }
+
+    .hero-desc { color: rgba(255,255,255,.72); font-size: 1rem; max-width: 440px; margin-bottom: 36px; }
+
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
+    .btn-primary {
+      background: var(--teal); color: var(--white);
+      padding: 13px 30px; border-radius: 30px;
+      font-weight: 600; text-decoration: none; font-size: .92rem;
+      transition: background .2s, transform .15s; display: inline-block;
+    }
+    .btn-primary:hover { background: #22998A; transform: translateY(-2px); }
+
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,.4); color: var(--white);
+      padding: 11px 28px; border-radius: 30px;
+      font-weight: 500; text-decoration: none; font-size: .92rem;
+      transition: border-color .2s, transform .15s; display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--teal); transform: translateY(-2px); }
+
+    .hero-stats { display: flex; gap: 36px; }
+    .stat-num  { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--white); font-weight: 700; line-height: 1; }
+    .stat-num span { color: var(--gold); }
+    .stat-label{ color: rgba(255,255,255,.55); font-size: .78rem; margin-top: 4px; }
+
+    .hero-visual {
+      flex: 1; display: flex; justify-content: flex-end; align-items: center;
+      z-index: 1; padding-left: 40px;
+    }
+    .hero-card {
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 20px; padding: 32px; max-width: 300px; width: 100%;
+      backdrop-filter: blur(10px);
+    }
+    .hero-card-title { color: var(--teal); font-size: .75rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 20px; }
+    .service-chip {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,.06); border-radius: 10px;
+      padding: 10px 14px; margin-bottom: 10px; color: rgba(255,255,255,.85);
+      font-size: .88rem;
+    }
+    .service-chip .icon { font-size: 1.1rem; }
+
+    .floating-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--white); border-radius: 30px;
+      padding: 8px 16px; margin-top: 18px;
+      font-size: .8rem; font-weight: 600; color: var(--navy);
+      box-shadow: 0 4px 20px rgba(0,0,0,.2);
+    }
+    .floating-badge .dot { width: 8px; height: 8px; background: #48BB78; border-radius: 50%; }
+
+    /* ── SECTION BASE ── */
+    section { padding: 80px 5%; }
+    .section-tag { color: var(--teal); font-size: .78rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3.5vw, 2.4rem); color: var(--navy); font-weight: 700; line-height: 1.25; }
+    .section-desc { color: var(--gray); font-size: .95rem; max-width: 520px; margin-top: 12px; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--light); }
+
+    .services-header { text-align: center; margin-bottom: 52px; }
+    .services-header .section-desc { margin: 12px auto 0; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 30px 26px;
+      border: 1px solid var(--border);
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+      cursor: default;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(44,181,160,.12); border-color: var(--teal); }
+
+    .svc-icon {
+      width: 52px; height: 52px; background: var(--mint);
+      border-radius: 14px; display: flex; align-items: center;
+      justify-content: center; font-size: 1.5rem; margin-bottom: 18px;
+    }
+    .svc-name { font-weight: 700; color: var(--navy); font-size: 1.05rem; margin-bottom: 8px; }
+    .svc-desc { color: var(--gray); font-size: .88rem; line-height: 1.55; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); }
+    .about-wrap { display: flex; gap: 60px; align-items: center; flex-wrap: wrap; }
+    .about-visual { flex: 0 0 320px; }
+    .doc-card {
+      background: var(--navy); border-radius: 20px; padding: 36px;
+      text-align: center; color: var(--white); position: relative;
+    }
+    .doc-avatar {
+      width: 110px; height: 110px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), #1a8a7a);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; margin: 0 auto 18px;
+      border: 4px solid rgba(255,255,255,.2);
+    }
+    .doc-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
+    .doc-degree { color: var(--teal); font-size: .82rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 20px; }
+    .doc-exp {
+      background: rgba(255,255,255,.08); border-radius: 12px; padding: 14px;
+      display: flex; gap: 20px; justify-content: center;
+    }
+    .exp-item { text-align: center; }
+    .exp-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold); font-weight: 700; }
+    .exp-lbl { font-size: .72rem; color: rgba(255,255,255,.6); margin-top: 2px; }
+
+    .about-content { flex: 1; min-width: 280px; }
+    .check-list { list-style: none; margin-top: 20px; }
+    .check-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      margin-bottom: 14px; color: var(--text); font-size: .93rem;
+    }
+    .check-list li::before { content: '✓'; color: var(--teal); font-weight: 700; margin-top: 2px; flex-shrink: 0; }
+
+    /* ── WHY US ── */
+    #why { background: var(--navy); }
+    #why .section-title { color: var(--white); }
+    #why .section-desc { color: rgba(255,255,255,.6); }
+
+    .why-header { margin-bottom: 52px; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .why-card {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 16px; padding: 26px;
+      transition: background .25s, border-color .25s;
+    }
+    .why-card:hover { background: rgba(44,181,160,.12); border-color: rgba(44,181,160,.4); }
+    .why-icon { font-size: 2rem; margin-bottom: 14px; }
+    .why-title { color: var(--white); font-weight: 600; font-size: .98rem; margin-bottom: 8px; }
+    .why-desc { color: rgba(255,255,255,.55); font-size: .85rem; }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background: var(--light); }
+    .test-header { text-align: center; margin-bottom: 48px; }
+    .test-header .section-desc { margin: 12px auto 0; }
+
+    .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
+    .test-card {
+      background: var(--white); border-radius: 16px; padding: 28px;
+      border: 1px solid var(--border);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .test-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.06); }
+
+    .stars { color: var(--gold); font-size: 1rem; letter-spacing: 2px; margin-bottom: 14px; }
+    .test-quote { color: var(--text); font-size: .9rem; line-height: 1.65; margin-bottom: 20px; font-style: italic; }
+    .test-author { display: flex; align-items: center; gap: 12px; }
+    .test-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--teal); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1rem; flex-shrink: 0;
+    }
+    .test-name { font-weight: 600; font-size: .9rem; color: var(--navy); }
+    .test-city { font-size: .78rem; color: var(--gray); }
+
+    /* ── APPOINTMENT ── */
+    #appointment { background: var(--white); }
+    .appt-wrap { display: flex; gap: 60px; align-items: flex-start; flex-wrap: wrap; }
+
+    .appt-info { flex: 1; min-width: 260px; }
+    .info-block { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 22px; }
+    .info-icon {
+      width: 44px; height: 44px; background: var(--mint);
+      border-radius: 12px; display: flex; align-items: center;
+      justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+    }
+    .info-label { font-size: .78rem; color: var(--teal); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+    .info-value { color: var(--navy); font-weight: 500; font-size: .93rem; margin-top: 2px; }
+
+    .appt-form { flex: 0 0 420px; }
+    .form-card {
+      background: var(--light); border-radius: 20px;
+      padding: 36px; border: 1px solid var(--border);
+    }
+    .form-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); font-weight: 700; margin-bottom: 24px; }
+
+    .form-row { display: flex; gap: 14px; }
+    .form-group { margin-bottom: 16px; flex: 1; }
+    .form-group label { font-size: .82rem; font-weight: 600; color: var(--navy); display: block; margin-bottom: 6px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-family: 'Inter', sans-serif; font-size: .9rem; color: var(--text);
+      background: var(--white); outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(44,181,160,.15);
+    }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+
+    .submit-btn {
+      width: 100%; padding: 14px;
+      background: var(--teal); color: var(--white);
+      border: none; border-radius: 12px;
+      font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: background .2s, transform .15s;
+      margin-top: 6px;
+    }
+    .submit-btn:hover { background: #22998A; transform: translateY(-1px); }
+
+    .success-msg {
+      display: none; text-align: center; padding: 20px;
+      background: var(--mint); border-radius: 12px;
+      color: #1a7a6a; font-weight: 600; margin-top: 14px;
+      border: 1px solid rgba(44,181,160,.3);
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--navy); }
+    #contact .section-title { color: var(--white); }
+
+    .contact-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 28px; margin-top: 44px;
+    }
+    .contact-card {
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 14px; padding: 24px;
+    }
+    .contact-icon { font-size: 1.6rem; margin-bottom: 12px; }
+    .contact-label { color: var(--teal); font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
+    .contact-value { color: var(--white); font-size: .93rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #111D33; padding: 28px 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-copy { color: rgba(255,255,255,.45); font-size: .82rem; }
+    .footer-links { display: flex; gap: 22px; }
+    .footer-links a { color: rgba(255,255,255,.4); text-decoration: none; font-size: .82rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--teal); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu {
+        display: none; position: fixed; inset: 70px 0 0 0;
+        background: var(--navy); z-index: 99; flex-direction: column;
+        align-items: center; justify-content: center; gap: 28px;
+      }
+      .mobile-menu.open { display: flex; }
+      .mobile-menu a { color: var(--white); text-decoration: none; font-size: 1.2rem; }
+
+      #home { flex-direction: column; text-align: center; }
+      .hero-btns, .hero-stats { justify-content: center; }
+      .hero-visual { display: none; }
+      .hero-stats { gap: 24px; }
+
+      .about-visual { flex: unset; width: 100%; }
+      .appt-form { flex: unset; width: 100%; }
+      .form-row { flex-direction: column; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="logo">
+    <div class="logo-icon">🦷</div>
+    <div>
+      <div class="logo-text">SmileCare</div>
+      <span class="logo-sub">Dental Clinic</span>
+    </div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <button class="nav-cta" onclick="document.getElementById('appointment').scrollIntoView({behavior:'smooth'})">
+    Book Appointment
+  </button>
+
+  <div class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home"         onclick="toggleMenu()">Home</a>
+  <a href="#services"     onclick="toggleMenu()">Services</a>
+  <a href="#about"        onclick="toggleMenu()">About</a>
+  <a href="#testimonials" onclick="toggleMenu()">Reviews</a>
+  <a href="#appointment"  onclick="toggleMenu()">Appointment</a>
+  <a href="#contact"      onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-content">
+    <div class="hero-badge">Ahmedabad ની #1 Dental Clinic</div>
+    <h1 class="hero-title">
+      આપની <span>Smile</span> એ<br/>
+      અમારી Priority છે
+    </h1>
+    <p class="hero-desc">
+      Most advanced dental treatments with gentle care.
+      Dr. Patel ની 15+ વર્ષ ની experience સાથે,
+      Painless Treatment ની guarantee.
+    </p>
+    <div class="hero-btns">
+      <a href="#appointment" class="btn-primary">📅 Appointment Book કરો</a>
+      <a href="#services"    class="btn-outline">Services જુઓ</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">5000<span>+</span></div>
+        <div class="stat-label">Happy Patients</div>
+      </div>
+      <div>
+        <div class="stat-num">15<span>+</span></div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">4.9<span>★</span></div>
+        <div class="stat-label">Google Rating</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="hero-card-title">Our Specialties</div>
+      <div class="service-chip"><span class="icon">🦷</span> Teeth Whitening</div>
+      <div class="service-chip"><span class="icon">😁</span> Braces & Aligners</div>
+      <div class="service-chip"><span class="icon">🔬</span> Root Canal</div>
+      <div class="service-chip"><span class="icon">👑</span> Dental Implants</div>
+      <div class="service-chip"><span class="icon">🌟</span> Smile Makeover</div>
+      <div class="floating-badge">
+        <span class="dot"></span> હાલ Open — 9AM to 7PM
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header">
+    <div class="section-tag">Our Services</div>
+    <h2 class="section-title">Complete Dental Care</h2>
+    <p class="section-desc">Advanced technology સાથે affordable & painless treatment</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="svc-icon">🦷</div>
+      <div class="svc-name">Teeth Whitening</div>
+      <div class="svc-desc">Professional whitening treatment. 1 session માં bright white smile પામો.</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon">😁</div>
+      <div class="svc-name">Braces & Aligners</div>
+      <div class="svc-desc">Metal braces, ceramic braces, અને invisible aligners – દરેક budget અને choice માટે.</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon">👑</div>
+      <div class="svc-name">Dental Implants</div>
+      <div class="svc-desc">Permanent tooth replacement. Natural teeth જેવી feel અને look.</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon">🔬</div>
+      <div class="svc-name">Root Canal</div>
+      <div class="svc-desc">Painless RCT. 1-2 sitting માં complete. Modern technology વડે.</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon">🌟</div>
+      <div class="svc-name">Smile Makeover</div>
+      <div class="svc-desc">Complete smile transformation. Veneers, bonding & bleaching combination.</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon">🧒</div>
+      <div class="svc-name">Kids Dentistry</div>
+      <div class="svc-desc">Children friendly environment. Gentle & painless treatment for kids.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-wrap">
+    <div class="about-visual">
+      <div class="doc-card">
+        <div class="doc-avatar">👨‍⚕️</div>
+        <div class="doc-name">Dr. Rahul Patel</div>
+        <div class="doc-degree">BDS, MDS – Cosmetic Dentistry</div>
+        <div class="doc-exp">
+          <div class="exp-item">
+            <div class="exp-num">15+</div>
+            <div class="exp-lbl">Years Exp</div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-num">5K+</div>
+            <div class="exp-lbl">Patients</div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-num">100%</div>
+            <div class="exp-lbl">Safe</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="about-content">
+      <div class="section-tag">About Doctor</div>
+      <h2 class="section-title">Dr. Rahul Patel<br/>વિશે</h2>
+      <p class="section-desc" style="max-width:100%">
+        Dr. Rahul Patel Gujarat ના leading cosmetic dentist છે. AIIMS Delhi થી MDS
+        complete કર્યા પછી, 15 વર્ષ થી Ahmedabad માં patients ને best dental care
+        આપી રહ્યા છે.
+      </p>
+      <ul class="check-list">
+        <li>AIIMS Delhi થી MDS – Cosmetic Dentistry</li>
+        <li>International Implant Training — Germany & USA</li>
+        <li>5000+ Successful Smile Transformations</li>
+        <li>Painless Treatment ની 100% Guarantee</li>
+        <li>Latest Technology — Digital X-Ray, Laser Dentistry</li>
+        <li>Affordable Fees with EMI option</li>
+      </ul>
+      <a href="#appointment" class="btn-primary" style="margin-top:24px;display:inline-block">
+        Appointment Book કરો
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="why-header">
+    <div class="section-tag" style="color:var(--teal)">Why Choose Us</div>
+    <h2 class="section-title" style="color:var(--white)">શા માટે SmileCare?</h2>
+    <p class="section-desc" style="color:rgba(255,255,255,.6)">Ahmedabad ની Most Trusted Dental Clinic</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">💉</div>
+      <div class="why-title">Painless Treatment</div>
+      <div class="why-desc">Advanced anesthesia techniques. Injection free options available.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">⚡</div>
+      <div class="why-title">Same Day Results</div>
+      <div class="why-desc">Teeth whitening, fillings, & more — results in just 1 visit.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">💰</div>
+      <div class="why-title">Affordable + EMI</div>
+      <div class="why-desc">No cost EMI option. Budget-friendly packages for every treatment.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🔬</div>
+      <div class="why-title">Modern Technology</div>
+      <div class="why-desc">Digital X-Ray, Laser, 3D scanning — latest equipment.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🧼</div>
+      <div class="why-title">100% Sterilized</div>
+      <div class="why-desc">International hygiene standards. Zero infection risk.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📞</div>
+      <div class="why-title">24/7 Support</div>
+      <div class="why-desc">Emergency dental helpline. WhatsApp support available.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="test-header">
+    <div class="section-tag">Patient Reviews</div>
+    <h2 class="section-title">Patients શું કહે છે?</h2>
+    <p class="section-desc">5000+ happy patients ના genuine reviews</p>
+  </div>
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p class="test-quote">"Dr. Patel એ Root Canal Treatment એટલી painlessly કરી કે મને ખ્યાલ પણ ન આવ્યો. Best dental experience!"</p>
+      <div class="test-author">
+        <div class="test-avatar">P</div>
+        <div>
+          <div class="test-name">Priya Shah</div>
+          <div class="test-city">Ahmedabad</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p class="test-quote">"Braces treatment 18 months માં complete. Smile completely transformed! Staff ખૂબ friendly અને caring છે."</p>
+      <div class="test-author">
+        <div class="test-avatar">R</div>
+        <div>
+          <div class="test-name">Raj Mehta</div>
+          <div class="test-city">Gandhinagar</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <p class="test-quote">"Dental implant treatment ખૂબ successful રહ્યું. Natural teeth જેવું feel. Dr. Patel's expertise is outstanding!"</p>
+      <div class="test-author">
+        <div class="test-avatar">N</div>
+        <div>
+          <div class="test-name">Neha Patel</div>
+          <div class="test-city">Surat</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPOINTMENT -->
+<section id="appointment">
+  <div class="appt-wrap">
+    <div class="appt-info">
+      <div class="section-tag">Book Now</div>
+      <h2 class="section-title">Appointment<br/>Book કરો</h2>
+      <p class="section-desc">Online appointment book કરો — 10 minutes માં confirmation મળશે.</p>
+
+      <div style="margin-top:36px">
+        <div class="info-block">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="info-label">Address</div>
+            <div class="info-value">123, Satellite Road, Near SG Highway,<br>Ahmedabad – 380015</div>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="info-icon">📞</div>
+          <div>
+            <div class="info-label">Phone</div>
+            <div class="info-value">+91 98765 43210</div>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="info-icon">🕐</div>
+          <div>
+            <div class="info-label">Working Hours</div>
+            <div class="info-value">Mon–Sat: 9:00 AM – 7:00 PM<br>Sunday: 10:00 AM – 2:00 PM</div>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="info-icon">💬</div>
+          <div>
+            <div class="info-label">WhatsApp</div>
+            <div class="info-value">+91 98765 43210</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="appt-form">
+      <div class="form-card">
+        <div class="form-title">Appointment Form</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>પૂરું નામ *</label>
+            <input type="text" id="fname" placeholder="તમારું નામ" />
+          </div>
+          <div class="form-group">
+            <label>Mobile *</label>
+            <input type="tel" id="fphone" placeholder="10-digit number" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="femail" placeholder="yourname@email.com" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Date *</label>
+            <input type="date" id="fdate" />
+          </div>
+          <div class="form-group">
+            <label>Time *</label>
+            <select id="ftime">
+              <option value="">Select Time</option>
+              <option>9:00 AM</option>
+              <option>10:00 AM</option>
+              <option>11:00 AM</option>
+              <option>12:00 PM</option>
+              <option>2:00 PM</option>
+              <option>3:00 PM</option>
+              <option>4:00 PM</option>
+              <option>5:00 PM</option>
+              <option>6:00 PM</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Treatment *</label>
+          <select id="ftreatment">
+            <option value="">Treatment Select કરો</option>
+            <option>Teeth Whitening</option>
+            <option>Braces / Aligners</option>
+            <option>Dental Implants</option>
+            <option>Root Canal</option>
+            <option>Smile Makeover</option>
+            <option>Kids Dentistry</option>
+            <option>General Checkup</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message (Optional)</label>
+          <textarea id="fmsg" placeholder="કોઈ ખાસ concern હોય તો જણાવો..."></textarea>
+        </div>
+        <button class="submit-btn" onclick="submitForm()">📅 Appointment Book કરો</button>
+        <div class="success-msg" id="successMsg">
+          ✅ Appointment Successfully Book થઈ! <br/>
+          અમે 10 minutes માં confirm કરીશું.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-tag" style="color:var(--teal)">Contact Us</div>
+  <h2 class="section-title" style="color:var(--white)">અમારો સંપર્ક</h2>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">📍</div>
+      <div class="contact-label">Address</div>
+      <div class="contact-value">123, Satellite Road, Near SG Highway, Ahmedabad – 380015</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">📞</div>
+      <div class="contact-label">Call Us</div>
+      <div class="contact-value">+91 98765 43210</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">💬</div>
+      <div class="contact-label">WhatsApp</div>
+      <div class="contact-value">+91 98765 43210</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">📧</div>
+      <div class="contact-label">Email</div>
+      <div class="contact-value">info@smilecare.in</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🕐</div>
+      <div class="contact-label">Timing</div>
+      <div class="contact-value">Mon–Sat: 9AM–7PM<br>Sunday: 10AM–2PM</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🌐</div>
+      <div class="contact-label">Website</div>
+      <div class="contact-value">www.smilecare.in</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2025 SmileCare Dental Clinic · Dr. Rahul Patel · Ahmedabad</div>
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#appointment">Appointment</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<!-- WhatsApp Float Button -->
+<a href="https://wa.me/919876543210" target="_blank" style="
+  position:fixed; bottom:24px; right:24px;
+  width:54px; height:54px; background:#25D366; color:#fff;
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem; box-shadow:0 4px 20px rgba(37,211,102,.4);
+  text-decoration:none; z-index:999; transition:transform .2s;
+" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">💬</a>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // Set min date for appointment to today
+  const dateInput = document.getElementById('fdate');
+  if (dateInput) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+  }
+
+  function submitForm() {
+    const name      = document.getElementById('fname').value.trim();
+    const phone     = document.getElementById('fphone').value.trim();
+    const date      = document.getElementById('fdate').value;
+    const time      = document.getElementById('ftime').value;
+    const treatment = document.getElementById('ftreatment').value;
+
+    if (!name || !phone || !date || !time || !treatment) {
+      alert('⚠️ કૃપા કરી * marked fields ભરો.');
+      return;
+    }
+    if (phone.length < 10) {
+      alert('⚠️ Valid 10-digit mobile number enter કરો.');
+      return;
+    }
+
+    document.getElementById('successMsg').style.display = 'block';
+
+    // Reset form
+    ['fname','fphone','femail','fdate','fmsg'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('ftime').selectedIndex = 0;
+    document.getElementById('ftreatment').selectedIndex = 0;
+
+    setTimeout(() => {
+      document.getElementById('successMsg').style.display = 'none';
+    }, 5000);
+  }
+
+  // Smooth active nav link highlight
+  const sections = document.querySelectorAll('section[id]');
+  const links    = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    links.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--teal)' : 'rgba(255,255,255,.85)';
+    });
+  });
+</script>
+</body>
+</html>
